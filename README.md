@@ -20,9 +20,25 @@ npm run start
 
 Poi apri [http://localhost:3000](http://localhost:3000). In produzione il server Express serve i file statici e fa da proxy per l’API BetsAPI (evita CORS).
 
-## Token BetsAPI
+## Variabili d’ambiente (Environment)
 
-Il token è in `src/api/betsapi.js` o in variabile d’ambiente `VITE_BETSAPI_TOKEN` (file `.env` in locale). Su Render imposta **Environment** → `VITE_BETSAPI_TOKEN` = il tuo token (usato in fase di build).
+| Variabile | Obbligatoria | Dove | Descrizione |
+|-----------|--------------|------|-------------|
+| `VITE_BETSAPI_TOKEN` | Sì (in produzione) | Render → Environment, oppure `.env` in locale | Token API BetsAPI. Senza non funzionano leghe e classifiche. Ottieni il token da [betsapi.com](https://betsapi.com). |
+| `PORT` | No | Render la imposta da solo | Porta del server (default 3000 in locale). |
+
+**In locale:** crea un file `.env` nella root del progetto (vedi `.env.example`):
+
+```
+VITE_BETSAPI_TOKEN=il_tuo_token_betsapi
+```
+
+**Su Render:** dopo aver creato il Web Service vai su **Environment** → **Add Environment Variable** e aggiungi:
+
+- **Key:** `VITE_BETSAPI_TOKEN`  
+- **Value:** il tuo token BetsAPI (es. `83845-xxxxx`)
+
+Poi fai **Save Changes** e, se il servizio era già deployato, **Manual Deploy** → **Deploy latest commit** (il token viene usato in fase di build).
 
 ---
 
@@ -57,8 +73,9 @@ Sostituisci `TUO-USERNAME` e `classifiche-campionati` con il tuo utente e il nom
    - **Build Command:** `npm install && npm run build`
    - **Start Command:** `node server.js`
    - **Instance Type:** Free (se disponibile)
-5. (Opzionale) **Environment** → aggiungi:
-   - `VITE_BETSAPI_TOKEN` = il tuo token BetsAPI (per il build)
+5. **Environment** → **Add Environment Variable**:
+   - **Key:** `VITE_BETSAPI_TOKEN`
+   - **Value:** il tuo token BetsAPI (senza non si caricano leghe/classifiche). Vedi sezione *Variabili d’ambiente* sopra.
 6. Clicca **Create Web Service**.
 
 Render eseguirà build e avvio; al termine avrai un URL tipo `https://classifiche-campionati-xxx.onrender.com`.

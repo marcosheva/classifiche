@@ -6,4 +6,5 @@ services:
     startCommand: node server.js
     envVars:
       - key: NODE_VERSION
-        value: 20
+        value: "20"
+      # Aggiungi VITE_BETSAPI_TOKEN da Render Dashboard → Environment → Add Variable
